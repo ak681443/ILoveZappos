@@ -7,13 +7,13 @@ import java.util.List;
  */
 
 public class SearchResponse {
-    List<SearchResult> searchResults;
+    List<SearchResult> results;
 
     public List<SearchResult> getSearchResults() {
-        return searchResults;
+        return results;
     }
 
     public void setSearchResults(List<SearchResult> searchResults) {
-        this.searchResults = searchResults;
+        this.results = searchResults;
     }
 }

@@ -24,14 +24,14 @@ import java.util.List;
 */
 
 public class AutoCompleteResponse {
-    List<String> autocompletedEntries;
+    List<String> results;
 
 
     public List<String> getAutocompletedEntries() {
-        return autocompletedEntries;
+        return results;
     }
 
     public void setAutocompletedEntries(List<String> autocompletedEntries) {
-        this.autocompletedEntries = autocompletedEntries;
+        this.results = autocompletedEntries;
     }
 }

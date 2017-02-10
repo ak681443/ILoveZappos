@@ -5,6 +5,7 @@ import android.util.Log;
 import com.ak681443.ilovezappos.api.ZapposAPI;
 import com.ak681443.ilovezappos.model.AutoCompleteResponse;
 import com.ak681443.ilovezappos.model.RecomendationResponse;
+import com.ak681443.ilovezappos.model.SearchResponse;
 import com.ak681443.ilovezappos.model.SearchResult;
 
 import java.io.IOException;
@@ -49,16 +50,20 @@ public class ZAPIUtil {
     }
 
 
-    public static void performSearch(String term, Callback<SearchResult> callback){
+    public static void performSearch(String term, Callback<SearchResponse> callback){
         zapi.searchProduct(term).enqueue(callback);
     }
 
     public static void getSimilarProducts(SearchResult originalProduct, Callback<RecomendationResponse> callback){
-        zapi.getSimilarProducts(originalProduct, EMPHASIS_COLOR).enqueue(callback);
+        zapi.getSimilarProducts(originalProduct, "brandName").enqueue(callback);
     }
 
     public static void doAutoComplete(String term, Callback<AutoCompleteResponse> callback){
         zapi.autoCompleteTerm(term).enqueue(callback);
+    }
+
+    public static AutoCompleteResponse doAutoCompleteSync(String term) throws IOException{
+        return zapi.autoCompleteTerm(term).execute().body();
     }
 
     private static void injectAuthenticationInterceptor(OkHttpClient.Builder httpClient){

@@ -20,7 +20,6 @@ import retrofit2.Retrofit;
       "productName": "Nike Long-Length Medium Resistance Band 2.0"
     }
  */
-
 public class SearchResult {
     String brandName;
     String thumbnailImageUrl;

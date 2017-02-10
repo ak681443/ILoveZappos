@@ -15,8 +15,8 @@ import retrofit2.http.Query;
 
 public interface ZapposAPI {
 
-    @GET("/Search?limit=1")
-    Call<SearchResult> searchProduct(@Query("term") String searchTerm);
+    @GET("/Search")
+    Call<SearchResponse> searchProduct(@Query("term") String searchTerm);
 
     @GET("/Search/Similarity?limit=10&type=moreLikeThis")
     Call<RecomendationResponse> getSimilarProducts(@Query("styleId") SearchResult originalProduct,

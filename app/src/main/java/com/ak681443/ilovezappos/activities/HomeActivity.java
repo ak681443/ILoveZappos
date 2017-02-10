@@ -1,23 +1,21 @@
 package com.ak681443.ilovezappos.activities;
 
+import android.annotation.TargetApi;
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.AdapterView;
 
 import com.ak681443.ilovezappos.R;
-import com.ak681443.ilovezappos.model.SearchResult;
-import com.ak681443.ilovezappos.util.ZAPIUtil;
+import com.ak681443.ilovezappos.adapters.AutoCompleteAdapter;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+import com.ak681443.ilovezappos.views.SearchBar;
 
+@TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class HomeActivity extends AppCompatActivity {
 
     @Override
@@ -26,47 +24,52 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        ZAPIUtil.initializeAPI();
-        ZAPIUtil.performSearch("ni", new Callback<SearchResult>() {
-            @Override
-            public void onResponse(Call<SearchResult> call, Response<SearchResult> response) {
-                Toast.makeText(getApplicationContext(), response.body().getProductName(), Toast.LENGTH_LONG).show();
-            }
 
+        setupSearchBar();
+    }
+
+    private void setupSearchBar(){
+        final SearchBar textView =(SearchBar) findViewById(R.id.autoCompleteTextView);
+        textView.setAdapter(new AutoCompleteAdapter(this));
+        textView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onFailure(Call<SearchResult> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), t.toString(), Toast.LENGTH_LONG).show();
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final SearchBar textView =(SearchBar) findViewById(R.id.autoCompleteTextView);
+                textView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        textView.setText("");
+                        textView.clearFocus();
+                    }
+                }, 1000);
+                Intent productPageIntent = new Intent(getApplicationContext(), ProductPageActivity.class);
+                productPageIntent.putExtra("name", (String)adapterView.getItemAtPosition(i));
+                startActivity(productPageIntent);
             }
         });
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+
+        textView.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+            public void onFocusChange(View view, boolean hasFocus) {
+                if(hasFocus){
+                    findViewById(R.id.imageView).setVisibility(View.GONE);
+                } else {
+                    findViewById(R.id.imageView).setVisibility(View.VISIBLE);
+                }
+                toggleActionBar();
             }
         });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_home, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    private void toggleActionBar() {
+        ActionBar actionBar = getSupportActionBar();
+        if(actionBar!=null){
+            if(actionBar.isShowing()){
+                actionBar.hide();
+            } else {
+                actionBar.show();
+            }
         }
-
-        return super.onOptionsItemSelected(item);
     }
 }
