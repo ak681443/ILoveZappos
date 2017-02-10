@@ -158,7 +158,7 @@ public class SearchResult implements Parcelable{
         return 0;
     }
 
-    private static Creator<SearchResult> CREATOR = new Creator<SearchResult>() {
+    public static Creator<SearchResult> CREATOR = new Creator<SearchResult>() {
         @Override
         public SearchResult createFromParcel(Parcel parcel) {
             return new SearchResult(parcel);
