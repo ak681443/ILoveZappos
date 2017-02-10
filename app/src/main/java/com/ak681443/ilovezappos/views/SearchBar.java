@@ -49,10 +49,12 @@ public class SearchBar extends AutoCompleteTextView {
             params.removeRule(RelativeLayout.CENTER_VERTICAL);
             params.setMargins(0, 0, 0, 0);
             setLayoutParams(params);
+            showKeyBoard();
         } else {
             params.addRule(RelativeLayout.CENTER_VERTICAL, RelativeLayout.TRUE);
             params.setMargins(horizontalMargin, 0, horizontalMargin, 0);
             setLayoutParams(params);
+            hideKeyBoard();
         }
         super.onFocusChanged(focused, direction, previouslyFocusedRect);
     }
@@ -62,6 +64,7 @@ public class SearchBar extends AutoCompleteTextView {
                 getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         if (immService != null) {
             immService.hideSoftInputFromWindow(getWindowToken(), 0);
+
         }
         isKeyBoardShown = false;
     }
@@ -83,8 +86,12 @@ public class SearchBar extends AutoCompleteTextView {
                     state.handleUpEvent(event);
                 }
                 if (event.isTracking() && !event.isCanceled()) {
-                    clearFocus();
-                    hideKeyBoard();
+                    if(isKeyBoardShown){
+                        hideKeyBoard();
+                    } else {
+                        clearFocus();
+                        setText("");
+                    }
                     return true;
                 }
             }

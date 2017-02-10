@@ -62,8 +62,8 @@ public class ZAPIUtil {
         zapi.autoCompleteTerm(term).enqueue(callback);
     }
 
-    public static AutoCompleteResponse doAutoCompleteSync(String term) throws IOException{
-        return zapi.autoCompleteTerm(term).execute().body();
+    public static SearchResponse doAutoCompleteSync(String term) throws IOException{
+        return zapi.searchProduct(term).execute().body();
     }
 
     private static void injectAuthenticationInterceptor(OkHttpClient.Builder httpClient){

@@ -10,4 +10,6 @@ public class Constants {
     public static final String API_KEY = "b743e26728e16b81da139182bb2094357c31d331";
 
     public static final String EMPHASIS_COLOR  = "color";
+
+    public static final String EXTRAS_PRODUCT_POJO = "product_pojo";
 }

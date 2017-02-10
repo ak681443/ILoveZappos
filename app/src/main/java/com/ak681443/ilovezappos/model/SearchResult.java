@@ -1,5 +1,8 @@
 package com.ak681443.ilovezappos.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import retrofit2.Retrofit;
 
 /**
@@ -20,7 +23,8 @@ import retrofit2.Retrofit;
       "productName": "Nike Long-Length Medium Resistance Band 2.0"
     }
  */
-public class SearchResult {
+public class SearchResult implements Parcelable{
+
     String brandName;
     String thumbnailImageUrl;
     long productID;
@@ -34,6 +38,22 @@ public class SearchResult {
 
     //AUTO GENERATED GETTTERS & SETTERS FOLLOW
 
+    public SearchResult(){
+        //NO OP
+    }
+
+    public SearchResult(Parcel parcel){
+        brandName = parcel.readString();
+        thumbnailImageUrl = parcel.readString();
+        productID = parcel.readLong();
+        originalPrice = parcel.readString();
+        styleId =parcel.readString();
+        colorId = parcel.readString();
+        price = parcel.readString();
+        percentOff = parcel.readString();
+        productUrl = parcel.readString();
+        productName = parcel.readString();
+    }
 
     public String getBrandName() {
         return brandName;
@@ -114,4 +134,39 @@ public class SearchResult {
     public void setProductName(String productName) {
         this.productName = productName;
     }
+
+    public boolean getIsOnSale(){
+        return percentOff!=null && !percentOff.equals("0%");
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeString(brandName);
+        parcel.writeString(thumbnailImageUrl);
+        parcel.writeLong(productID);
+        parcel.writeString(originalPrice);
+        parcel.writeString(styleId);
+        parcel.writeString(colorId);
+        parcel.writeString(price);
+        parcel.writeString(percentOff);
+        parcel.writeString(productUrl);
+        parcel.writeString(productName);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    private static Creator<SearchResult> CREATOR = new Creator<SearchResult>() {
+        @Override
+        public SearchResult createFromParcel(Parcel parcel) {
+            return new SearchResult(parcel);
+        }
+
+        @Override
+        public SearchResult[] newArray(int i) {
+            return new SearchResult[0];
+        }
+    };
 }

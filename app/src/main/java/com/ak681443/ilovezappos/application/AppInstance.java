@@ -1,6 +1,7 @@
 package com.ak681443.ilovezappos.application;
 
 import android.app.Application;
+import android.databinding.DataBindingUtil;
 
 import static com.ak681443.ilovezappos.util.ZAPIUtil.*;
 
@@ -14,6 +15,7 @@ public class AppInstance extends Application {
     @Override
     public void onCreate() {
         initializeAPI();
+        DataBindingUtil.setDefaultComponent(new com.ak681443.ilovezappos.util.DataBindingUtil.DefaultDataBindingComponent());
         currInstance = this;
     }
 

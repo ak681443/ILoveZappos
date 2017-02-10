@@ -1,5 +1,6 @@
 package com.ak681443.ilovezappos.activities;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -9,6 +10,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.ak681443.ilovezappos.R;
+import com.ak681443.ilovezappos.model.SearchResult;
+
+import static com.ak681443.ilovezappos.util.Constants.*;
 
 public class ProductPageActivity extends AppCompatActivity {
 
@@ -18,8 +22,9 @@ public class ProductPageActivity extends AppCompatActivity {
         setContentView(R.layout.activity_product_page);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        TextView textView = (TextView) findViewById(R.id.product_name);
-        textView.setText(getIntent().getStringExtra("name"));
+        SearchResult searchResult = getIntent().getParcelableExtra(EXTRAS_PRODUCT_POJO);
+
+        //ProductPageActivity DataBindingUtil.setContentView(this, R.layout.activity_product_page);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -13,7 +13,9 @@ import android.widget.AdapterView;
 import com.ak681443.ilovezappos.R;
 import com.ak681443.ilovezappos.adapters.AutoCompleteAdapter;
 
+import com.ak681443.ilovezappos.model.SearchResult;
 import com.ak681443.ilovezappos.views.SearchBar;
+import static com.ak681443.ilovezappos.util.Constants.*;
 
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class HomeActivity extends AppCompatActivity {
@@ -43,7 +45,7 @@ public class HomeActivity extends AppCompatActivity {
                     }
                 }, 1000);
                 Intent productPageIntent = new Intent(getApplicationContext(), ProductPageActivity.class);
-                productPageIntent.putExtra("name", (String)adapterView.getItemAtPosition(i));
+                productPageIntent.putExtra(EXTRAS_PRODUCT_POJO, (SearchResult) adapterView.getItemAtPosition(i));
                 startActivity(productPageIntent);
             }
         });

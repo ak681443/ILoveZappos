@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.ak681443.ilovezappos.R;
 import com.ak681443.ilovezappos.databinding.SearchResultItemBinding;
-import com.ak681443.ilovezappos.model.AutoCompleteResponse;
+import com.ak681443.ilovezappos.model.SearchResponse;
 import com.ak681443.ilovezappos.model.SearchResult;
 import com.ak681443.ilovezappos.util.ZAPIUtil;
 
@@ -31,7 +31,7 @@ public class AutoCompleteAdapter extends BaseAdapter implements Filterable {
 
     private static final int MAX_RESULTS = 10;
     private Context mContext;
-    private ArrayList<String> resultList;
+    private ArrayList<SearchResult> resultList;
 
     public AutoCompleteAdapter(Context context) {
         mContext = context;
@@ -43,7 +43,7 @@ public class AutoCompleteAdapter extends BaseAdapter implements Filterable {
     }
 
     @Override
-    public String getItem(int index) {
+    public SearchResult getItem(int index) {
         return resultList.get(index);
     }
 
@@ -77,9 +77,9 @@ public class AutoCompleteAdapter extends BaseAdapter implements Filterable {
                 FilterResults filterResults = new FilterResults();
                 if (constraint != null) {
                     try {
-                        AutoCompleteResponse response = ZAPIUtil.doAutoCompleteSync(constraint.toString());
-                        filterResults.values = response.getAutocompletedEntries();
-                        filterResults.count = response.getAutocompletedEntries().size();
+                        SearchResponse response = ZAPIUtil.doAutoCompleteSync(constraint.toString());
+                        filterResults.values = response.getSearchResults();
+                        filterResults.count = response.getSearchResults().size();
                     }catch (Exception e){
                         //TODO Log
                         filterResults.values = resultList;
@@ -92,7 +92,7 @@ public class AutoCompleteAdapter extends BaseAdapter implements Filterable {
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 if (results != null && results.count > 0) {
-                    resultList = (ArrayList<String>) results.values;
+                    resultList = (ArrayList<SearchResult>) results.values;
                     notifyDataSetChanged();
                 } else {
                     notifyDataSetInvalidated();
