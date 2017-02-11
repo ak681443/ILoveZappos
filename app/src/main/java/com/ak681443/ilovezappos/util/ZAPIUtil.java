@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.ak681443.ilovezappos.api.ZapposAPI;
 import com.ak681443.ilovezappos.model.AutoCompleteResponse;
+import com.ak681443.ilovezappos.model.ImageResponse;
 import com.ak681443.ilovezappos.model.RecomendationResponse;
 import com.ak681443.ilovezappos.model.SearchResponse;
 import com.ak681443.ilovezappos.model.SearchResult;
@@ -60,6 +61,10 @@ public class ZAPIUtil {
 
     public static void doAutoComplete(String term, Callback<AutoCompleteResponse> callback){
         zapi.autoCompleteTerm(term).enqueue(callback);
+    }
+
+    public static void fetchThumbnails(String productId, Callback<ImageResponse> callback){
+        zapi.getImages(productId).enqueue(callback);
     }
 
     public static SearchResponse doAutoCompleteSync(String term) throws IOException{

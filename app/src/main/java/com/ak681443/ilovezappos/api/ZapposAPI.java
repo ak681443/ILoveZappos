@@ -1,6 +1,7 @@
 package com.ak681443.ilovezappos.api;
 
 import com.ak681443.ilovezappos.model.AutoCompleteResponse;
+import com.ak681443.ilovezappos.model.ImageResponse;
 import com.ak681443.ilovezappos.model.RecomendationResponse;
 import com.ak681443.ilovezappos.model.SearchResponse;
 import com.ak681443.ilovezappos.model.SearchResult;
@@ -25,4 +26,6 @@ public interface ZapposAPI {
     @GET("/AutoComplete")
     Call<AutoCompleteResponse> autoCompleteTerm(@Query("term") String searchTerm);
 
+    @GET("/Image")
+    Call<ImageResponse> getImages(@Query("productId") String productId);
 }

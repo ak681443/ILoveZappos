@@ -27,7 +27,7 @@ public class SearchResult implements Parcelable{
 
     String brandName;
     String thumbnailImageUrl;
-    long productID;
+    String productId;
     String originalPrice;
     String styleId;
     String colorId;
@@ -45,7 +45,7 @@ public class SearchResult implements Parcelable{
     public SearchResult(Parcel parcel){
         brandName = parcel.readString();
         thumbnailImageUrl = parcel.readString();
-        productID = parcel.readLong();
+        productId = parcel.readString();
         originalPrice = parcel.readString();
         styleId =parcel.readString();
         colorId = parcel.readString();
@@ -71,12 +71,12 @@ public class SearchResult implements Parcelable{
         this.thumbnailImageUrl = thumbnailImageUrl;
     }
 
-    public long getProductID() {
-        return productID;
+    public String getProductId() {
+        return productId;
     }
 
-    public void setProductID(long productID) {
-        this.productID = productID;
+    public void setProductId(String productId) {
+        this.productId = productId;
     }
 
     public String getOriginalPrice() {
@@ -143,7 +143,7 @@ public class SearchResult implements Parcelable{
     public void writeToParcel(Parcel parcel, int i) {
         parcel.writeString(brandName);
         parcel.writeString(thumbnailImageUrl);
-        parcel.writeLong(productID);
+        parcel.writeString(productId);
         parcel.writeString(originalPrice);
         parcel.writeString(styleId);
         parcel.writeString(colorId);
@@ -151,6 +151,11 @@ public class SearchResult implements Parcelable{
         parcel.writeString(percentOff);
         parcel.writeString(productUrl);
         parcel.writeString(productName);
+    }
+
+    @Override
+    public String toString() {
+        return productName;
     }
 
     @Override

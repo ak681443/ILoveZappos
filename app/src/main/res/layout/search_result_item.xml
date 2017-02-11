@@ -34,12 +34,6 @@
                 android:textAppearance="@style/Base.TextAppearance.AppCompat.Title"
                 android:text="@{product.productName}" />
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="@{product.isOnSale ? View.VISIBLE : View.GONE}"
-                android:text="@string/made_by"
-                />
-            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@id/product_name"

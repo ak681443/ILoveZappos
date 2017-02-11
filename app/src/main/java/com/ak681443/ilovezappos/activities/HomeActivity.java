@@ -37,13 +37,8 @@ public class HomeActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 final SearchBar textView =(SearchBar) findViewById(R.id.autoCompleteTextView);
-                textView.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        textView.setText("");
-                        textView.clearFocus();
-                    }
-                }, 1000);
+                textView.clearFocus();
+                textView.setText("");
                 Intent productPageIntent = new Intent(getApplicationContext(), ProductPageActivity.class);
                 productPageIntent.putExtra(EXTRAS_PRODUCT_POJO, (SearchResult) adapterView.getItemAtPosition(i));
                 startActivity(productPageIntent);
